@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-'''
-Contains a function.
-'''
+'''type-annotated function add'''
+
 from typing import List, Iterable, Sequence, Tuple
 
 

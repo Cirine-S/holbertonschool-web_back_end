@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
-'''
-Contains a function.
-'''
+'''type-annotated function make_multiplier'''
 from typing import Callable
 
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
-    '''
-    Return a function that multiplies a float by the argument.
-    '''
+    '''returns a function that multiplies a float by multiplier.'''
     def multi_func(x: float) -> float:
-        '''
-        Return float.
-        '''
+        '''returns float'''
         return x * multiplier
     return multi_func

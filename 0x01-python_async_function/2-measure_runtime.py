@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''asynchronous coroutine'''
-import asyncio, time
+import asyncio
+import time
 wait_n = __import__('1-concurrent_coroutines').wait_n
 
 

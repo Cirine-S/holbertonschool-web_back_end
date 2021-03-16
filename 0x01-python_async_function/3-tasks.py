@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''asynchronous coroutine'''
-import asyncio, time
+import asyncio
+import time
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 '''type-annotated function element_length'''
-
 from typing import List, Iterable, Sequence, Tuple
 
 

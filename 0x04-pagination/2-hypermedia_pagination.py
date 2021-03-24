@@ -45,34 +45,3 @@ class Server:
 		start_index = page * page_size - page_size
 		end_index = page * page_size
 		return (start_index, end_index)
-
- 	def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
-        """Returns a dictionary containing the following information:
-        - page_size: the length of the returned dataset page
-        - page: the current page number
-        - data: the dataset page (equivalent to return from previous task)
-        - next_page: number of the next page, None if no next page
-        - prev_page: number of the previous page, None if no previous page
-        - total_pages: the total number of pages in the dataset as an integer
-        """
-        dataset = self.dataset()
-        data = self.get_page(page, page_size)
-        page = page
-        total_pages = math.ceil(len(dataset) / page_size)
-        page_size = len(data)
-        next_page = None
-        prev_page = None
-        if page > 1:
-            prev_page = page - 1
-        if page < total_pages:
-            next_page = page + 1
-
-        d = {
-            'page_size': page_size,
-            'page': page,
-            'data': data,
-            'next_page': next_page,
-            'prev_page': prev_page,
-            'total_pages': total_pages
-        }
-        return d

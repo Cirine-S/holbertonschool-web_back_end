@@ -19,7 +19,6 @@ class LIFOCache(BaseCaching):
         self.cache_data[key] = item
         self.__class__.LAST_IN = key
 
-
     def get(self, key):
         '''Get an item by key'''
         if key is None or key not in self.cache_data.keys():

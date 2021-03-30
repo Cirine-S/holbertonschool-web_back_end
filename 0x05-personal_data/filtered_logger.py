@@ -22,7 +22,10 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         print(record)
         print(super().format(record))
-        return filter_datum(self.fields, self.REDACTION, super().format(record), self.SEPARATOR)
+        return filter_datum(self.fields,
+                            self.REDACTION,
+                            super().format(record),
+                            self.SEPARATOR)
 
 
 def filter_datum(fields: List[str],
@@ -32,5 +35,6 @@ def filter_datum(fields: List[str],
     """returns the log message obfuscated"""
     for field in fields:
         message = re.sub("{}=.*?{}".format(field, separator),
-                         "{}={}{}".format(field, redaction, separator), message)
+                         "{}={}{}".format(field, redaction, separator),
+                         message)
     return message

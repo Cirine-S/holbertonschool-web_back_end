@@ -19,7 +19,7 @@ def unauthorized() -> str:
     """ GET /api/v1/unauthorized
     Abort: 401
     """
-    abort(401)
+    return abort(401)
 
 
 @app_views.route('/stats/', strict_slashes=False)

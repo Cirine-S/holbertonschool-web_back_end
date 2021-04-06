@@ -7,5 +7,6 @@ holbertonschool-web_back_end
 
 
 class BasicAuth(Auth):
-    """pass"""
+    """[BasicAuth Class]
+    """
     pass

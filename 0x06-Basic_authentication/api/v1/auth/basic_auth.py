@@ -5,9 +5,20 @@ Module for Authentication
 holbertonschool-web_back_end
 """
 from api.v1.auth.auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
     """[BasicAuth Class]
     """
-    pass
+
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
+        if authorization_header is None:
+            return None
+        elif type(authorization_header) is not str:
+            return None
+        elif not authorization_header.startswith("Basic "):
+            return None
+        else:
+            return authorization_header[6:]

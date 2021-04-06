@@ -20,6 +20,8 @@ if os.getenv("AUTH_TYPE") == "auth":
 
 @app.before_request
 def before_request_handler() -> str:
+    """[check for user authentication before each request]
+    """
     if auth is None:
         return None
     excluded_paths = ['/api/v1/status/',

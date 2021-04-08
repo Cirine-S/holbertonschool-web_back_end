@@ -88,3 +88,17 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Linking the previous methods => API is fully protected
+                by a Basic Authentication
+        """
+
+        auth_header = self.authorization_header(request)
+        ext_b64_header = self.extract_base64_authorization_header(auth_header)
+        decoded_b64_header = self.decode_base64_authorization_header(
+            ext_b64_header)
+        user_credentials = self.extract_user_credentials(decoded_b64_header)
+        user_instance = self.user_object_from_credentials(
+            user_credentials[0], user_credentials[1])
+        return user_instance

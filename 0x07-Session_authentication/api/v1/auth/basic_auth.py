@@ -65,12 +65,12 @@ class BasicAuth(Auth):
             2 values
         """
         if decoded_base64_authorization_header is None:
-            return None, None
+            return(None, None)
         if type(decoded_base64_authorization_header) is not str:
-            return None, None
+            return (None, None)
         if ":" not in decoded_base64_authorization_header:
-            return None, None
-        emailAndPass = decoded_base64_authorization_header.split(':', 1)[1]
+            return (None, None)
+        emailAndPass = decoded_base64_authorization_header.split(':', 1)
         return tuple(emailAndPass)
 
     def user_object_from_credentials(

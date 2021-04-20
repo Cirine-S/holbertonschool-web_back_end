@@ -37,3 +37,23 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        Description: Find a user by keyword argument
+        Args:
+            keyword argument([dict]): [user Input]
+        Return:
+            user instance if user exist or raise an Error
+        """
+
+        try:
+            searched_user = self.__session.query(
+                User).filter_by(**kwargs).first()
+        except InvalidRequestError:
+            raise InvalidRequestError
+        except AttributeError:
+            raise NoResultFound
+        if searched_user is None:
+            raise NoResultFound
+        return searched_user

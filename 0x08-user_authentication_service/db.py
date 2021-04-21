@@ -68,5 +68,5 @@ class DB:
         try:
             self._session.query(User).filter(
                 User.id == user_id).update(kwargs)
-        except:
+        except BaseException:
             raise ValueError

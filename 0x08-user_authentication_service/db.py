@@ -54,6 +54,19 @@ class DB:
             raise InvalidRequestError
         except AttributeError:
             raise NoResultFound
-        if searched_user is None:
-            raise NoResultFound
         return searched_user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a user
+
+        Args:
+            user_id (int): [the id of the user to update]
+
+        Raises:
+            ValueError: [if a passed argument doesn't correspond to user attrs]
+        """
+        try:
+            self._session.query(User).filter(
+                User.id == user_id).update(kwargs)
+        except ValueError:
+            raise ValueError

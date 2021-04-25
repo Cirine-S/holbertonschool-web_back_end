@@ -80,3 +80,5 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(tc.a_property, am.return_value)
             self.assertEqual(tc.a_property, am.return_value)
             am.assert_called_once()
+
+			

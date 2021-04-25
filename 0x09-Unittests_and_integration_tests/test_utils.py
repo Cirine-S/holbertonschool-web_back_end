@@ -77,7 +77,6 @@ class TestMemoize(unittest.TestCase):
         with patch.object(TestClass, 'a_method') as am:
             am.return_value = 42
             tc = TestClass()
-			
             self.assertEqual(tc.a_property, am.return_value)
             self.assertEqual(tc.a_property, am.return_value)
             am.assert_called_once()

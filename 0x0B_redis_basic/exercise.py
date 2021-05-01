@@ -10,11 +10,13 @@ from functools import wraps
 
 def count_calls(fn: Callable) -> Callable:
     '''takes a single method Callable argument and returns a Callable'''
+    key = fn.__qualname__
+
     @wraps(fn)
     def wrapper(self, *args, **kwargs):
         '''increments the count for that key every time the method
         is called and returns the value returned by the original method'''
-        key = fn.__qualname__
+
         self._redis.incr(key)
         return fn(self, *args, **kwargs)
     return wrapper

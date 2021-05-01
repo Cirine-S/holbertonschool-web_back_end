@@ -8,17 +8,17 @@ from typing import Union, Callable
 from functools import wraps
 
 
-def count_calls(fn: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     '''takes a single method Callable argument and returns a Callable'''
-    key = fn.__qualname__
+    key = method.__qualname__
 
-    @wraps(fn)
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         '''increments the count for that key every time the method
         is called and returns the value returned by the original method'''
 
         self._redis.incr(key)
-        return fn(self, *args, **kwargs)
+        return method(self, *args, **kwargs)
     return wrapper
 
 

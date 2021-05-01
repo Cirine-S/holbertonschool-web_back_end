@@ -4,7 +4,7 @@ Writing strings to Redis
 """
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable
 
 
 class Cache():
@@ -19,6 +19,22 @@ class Cache():
         ''' The method should generate a random key (e.g. using uuid),
         store the input data in Redis using the random key
         and return the key'''
-        self.key = str(uuid.uuid4())
-        self._redis.mset({self.key: data})
-        return self.key
+        key = str(uuid.uuid4())
+        self._redis.mset({key: data})
+        return key
+
+    def get(self, key: str, fn: [Callable] = None) -> Union[str, bytes, int, float]:
+        '''Overwrite the original get method of Redis (highlevel abstraction of Redis instance)'''
+        if (fn is None):
+            return self._redis.get(key)
+        if (self._redis.get(key) is None):
+            return None
+        return fn(self._redis.get(key))
+
+    def get_str(self, value: bytes) -> str:
+        '''convert value to str(its original type)'''
+        return str(value.decode("utf-8"))
+
+    def get_int(self, value: bytes) -> int:
+        '''convert value to int(its original type)'''
+        return int(value.decode("utf-8"))

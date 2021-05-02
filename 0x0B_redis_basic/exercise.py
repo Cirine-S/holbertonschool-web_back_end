@@ -49,7 +49,7 @@ def replay(method: Callable):
     print(msg)
     for key, value in zip(inputs, outputs):
         msg = '{}(*{}) -> {}'.format(
-            method_name,
+            key,
             k.decode('utf-8'),
             v.decode('utf-8')
         )

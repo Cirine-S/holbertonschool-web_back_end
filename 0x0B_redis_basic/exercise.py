@@ -34,6 +34,27 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(fn: Callable):
+    """ implement a replay function to display the history of
+    calls of a particular function"""
+    # generate the keys of input/output list stored on Redis
+    functionName = fn.__qualname__
+    inputListKey = functionName + ":inputs"
+    outputListKey = functionName + ":outputs"
+    # get the number of calls to the function:
+    r = redis.Redis()
+    number_calls = r.get(functionName).decode('utf-8')
+    print("{} was called {} times:".format(functionName, number_calls))
+
+    # get list of inputs and ouputs:
+    inputs = r.lrange(inputListKey, 0, -1)
+    outputs = r.lrange(outputListKey, 0, -1)
+    for input, output input zip(inputs, outputs):
+        input = input.decode("utf-8")
+        output = output.decode("utf-8")
+        print("{}(*{}) -> {}".format(functionName, input, output))
+
+
 class Cache():
     def __init__(self):
         '''store an instance of the Redis client as a private variable
@@ -46,7 +67,7 @@ class Cache():
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         ''' The method should generate a random key (e.g. using uuid),
-        store the input data in Redis using the random key
+        store the input data input Redis using the random key
         and return the key'''
         key = str(uuid.uuid4())
         self._redis.mset({key: data})

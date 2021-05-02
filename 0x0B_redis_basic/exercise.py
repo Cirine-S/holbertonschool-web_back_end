@@ -34,25 +34,26 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(fn: Callable):
-    """ implement a replay function to display the history of
-    calls of a particular function"""
-    # generate the keys of input/output list stored on Redis
-    functionName = fn.__qualname__
-    inputListKey = functionName + ":inputs"
-    outputListKey = functionName + ":outputs"
-    # get the number of calls to the function:
-    r = redis.Redis()
-    number_calls = r.get(functionName).decode('utf-8')
-    print("{} was called {} times:".format(functionName, number_calls))
-
-    # get list of inputs and ouputs:
-    inputs = r.lrange(inputListKey, 0, -1)
-    outputs = r.lrange(outputListKey, 0, -1)
-    for input, output input zip(inputs, outputs):
-        input = input.decode("utf-8")
-        output = output.decode("utf-8")
-        print("{}(*{}) -> {}".format(functionName, input, output))
+def replay(method: Callable):
+    """
+        Displays the history of calls of the passed function
+    """
+    key = func.__qualname__
+    inputs = self._redis.lrange("{}:inputs".format(key), 0, -1)
+    outputs = self._redis.lrange("{}:outputs".format(key), 0, -1)
+    calls_number = len(inputs)
+    times_str = 'times'
+    if calls_number == 1:
+        times_str = 'time'
+    msg = '{} was called {} {}:'.format(key, calls_number, times_str)
+    print(msg)
+    for key, value in zip(inputs, outputs):
+        msg = '{}(*{}) -> {}'.format(
+            method_name,
+            k.decode('utf-8'),
+            v.decode('utf-8')
+        )
+        print(msg)
 
 
 class Cache():

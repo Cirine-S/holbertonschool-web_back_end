@@ -34,22 +34,23 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(method: Callable):
+def replay(func: Callable):
     """
-        Displays the history of calls of the passed function
+        Displays the history of calls of the passed func.
     """
-    key = func.__qualname__
-    inputs = self._redis.lrange("{}:inputs".format(key), 0, -1)
-    outputs = self._redis.lrange("{}:outputs".format(key), 0, -1)
+    r = redis.Redis()
+    method_name = func.__qualname__
+    inputs = r.lrange("{}:inputs".format(method_name), 0, -1)
+    outputs = r.lrange("{}:outputs".format(method_name), 0, -1)
     calls_number = len(inputs)
     times_str = 'times'
     if calls_number == 1:
         times_str = 'time'
-    msg = '{} was called {} {}:'.format(key, calls_number, times_str)
+    msg = '{} was called {} {}:'.format(method_name, calls_number, times_str)
     print(msg)
-    for key, value in zip(inputs, outputs):
+    for k, v in zip(inputs, outputs):
         msg = '{}(*{}) -> {}'.format(
-            key,
+            method_name,
             k.decode('utf-8'),
             v.decode('utf-8')
         )

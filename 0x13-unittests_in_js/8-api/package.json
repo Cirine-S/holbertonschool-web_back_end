@@ -1,0 +1,20 @@
+{
+	"name": "unittest-in-js",
+	"version": "1.0.0",
+	"description": "unittesting in js",
+	"main": "0-calcul.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"author": "IhebChatti",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	},
+	"devDependencies": {
+		"mocha": "^8.4.0",
+		"chai": "4.3.4",
+		"sinon": "11.1.1",
+		"request": "2.88.2"
+	}
+}

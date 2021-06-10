@@ -1,5 +1,3 @@
-import getSumOfHoods from './3-default-parameter.js';
+import handleProfileSignup from "./3-all";
 
-console.log(getSumOfHoods(34));
-console.log(getSumOfHoods(34, 3));
-console.log(getSumOfHoods(34, 3, 4));
+handleProfileSignup();

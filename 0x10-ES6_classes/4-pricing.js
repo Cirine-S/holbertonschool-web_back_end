@@ -1,3 +1,4 @@
+
 import Currency from './3-currency';
 
 export default class Pricing {
@@ -11,6 +12,9 @@ export default class Pricing {
   }
 
   set amount(amount) {
+    if (typeof amount !== 'number') {
+      throw (TypeError('amount must be a number'));
+    }
     this._amount = amount;
   }
 
@@ -19,14 +23,18 @@ export default class Pricing {
   }
 
   set currency(currency) {
+    if (!(currency instanceof Currency)) {
+      throw (TypeError('currency must currency'));
+    }
     this._currency = currency;
   }
 
-  displayFullPrice() {
-    return `${this._amount} ${this._currency._name} (${this.currency._code})`;
-  }
-
-  convertPrice(amount, conversionRate) {
+  static convertPrice(amount, conversionRate) {
     return amount * conversionRate;
   }
+
+  displayFullPrice() {
+    return `${this._amount} ${this._currency.displayFullCurrency()}`;
+  }
 }
+fvvvvvcdxswq
